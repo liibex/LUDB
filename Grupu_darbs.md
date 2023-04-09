@@ -1,4 +1,54 @@
+# Lielā praktiskā darba 3. nodevums - Grupas darbs
 
+## Dalībnieki:
+1. el22074, Emīls Lībeks
+2. aj22075, Aleksandrs Jurinovs
+
+## Biznesa pamatojums
+
+### Projekta nosaukums: Interneta Veikala Noliktavas datubāzes izstrāde
+### Biznesa nepieciešamība:
+Mūsdienās ir ļoti aktuāli interneta veikali, ar laiku tie jau ir pierādījuši, ka tos var stabili
+izmantot neuztraucoties pār preces atnākšanu un kvalitāti. Ar katru dienu pāliek vairak jo
+vairāk jauni interneta veikali, gan ar e-precēm, gan ar fiziskajām, gan jauni veikali, gan jau
+eksistējoši fiziski veikali, veido arī iespēju iepirkties elektroniski. Viens no galvenajiem
+faktoriem, kuri ietekmē preces pārdošanu elektroniskajos veikalos, ir ērts saits ar dažādiem
+filtriem un preču klasifikācija. Konkurence ir liela un ir jāuzlabo un jaatjaunina datubāzes pēc
+iespējas biežāk, lai izcelties no konkurentiem, tiem, kuriem būs ērtāka klasifikācija uzvarēs
+interneta veikalu sacencībās.
+Interneta veikala nodrošināšanai ir nepieciešamas divu veidu datubāzes. Viena kas satur
+klientu, preču un pasūtījumu informāciju, otra kas satur piegāžu, noliktavas, grāmatvedības
+uzskaites informāciju. Datubāzes ir nepieciešamas interneta veikala aizmugures procesu
+veikšanai. Tā vairāk kalpos un pildīs CRM vai Inventory/Warehouse datubāze.
+Datubāzes mērķis ir:
+sasaistīt un nodrošināt piegādes ķēdes darbību.
+nodrošināt, noliktavas uzskaiti un pārskatus.
+nodrošināt, grāmatvedības uzskaiti un pārskatus.
+Biznesa nodrošināšanai būs nepieciešams ievērot šādas prasības:
+
+1. Datubāzei ir jābūt pieejamai visiem darbiniekiem.
+2. Datubāze nebūs pieejama klientiem.
+3. Datubāzei ir jābut drošai, ātrai un uzticamai.
+4. Datubāzei ir jābūt viegli pārvaldāmai, paplašināmai.
+5. Datubāzei ir jābūt savstarpēji saistītai.
+
+
+Datubāzes galvenais mērķis ir sasaistīt un nodrošināt Piegādes ķēdes darbību.
+Datubāzes mērķis ir nodrošināt, noliktavas uzskaiti un pārskatus.
+Datubāzes mērķis ir nodrošināt, grāmatvedības uzskaiti un pārskatus.
+## Datubāzes struktūra
+Datubāze var saturēt tādas tabulas kā:
+1. Piegādes
+2. Noliktava
+3. Grāmatvedības uzskaites
+4. Pārskati
+5. Darbinieki
+6. Klienti
+7. Piegādātāji
+8. Pasūtījumi
+9. Produkti
+
+## Crows Feet ER Diagram
 
 ```mermaid
 erDiagram
@@ -102,98 +152,8 @@ erDiagram
 ```
 ## CHEN ER Diagram
 
-<!---
-Fix this code!
--->
-
-```mermaid
-
-graph TB
-    A[Category] --> A1[CategoryID]
-    A --> A2[Name]
-    A --> A3[Description]
-    B[Product] --> B1[ProductID]
-    B --> B2[Name]
-    B --> B3[Description]
-    B --> B4[SKU]
-    B --> B5[CategoryID]
-    B --> B6[SupplierID]
-    B --> B7[CostPrice]
-    B --> B8[SellingPrice]
-    C[Supplier] --> C1[SupplierID]
-    C --> C2[Name]
-    C --> C3[ContactName]
-    C --> C4[PhoneNumber]
-    C --> C5[Email]
-    C --> C6[Address]
-    D[Warehouse] --> D1[WarehouseID]
-    D --> D2[Name]
-    D --> D3[Location]
-    D --> D4[PhoneNumber]
-    E[Stock] --> E1[StockID]
-    E --> E2[ProductID]
-    E --> E3[WarehouseID]
-    E --> E4[Quantity]
-    F[StockMovement] --> F1[StockMovementID]
-    F --> F2[ProductID]
-    F --> F3[WarehouseID]
-    F --> F4[MovementType]
-    F --> F5[MovementQuantity]
-    F --> F6[MovementDate]
-    G[Employee] --> G1[EmployeeID]
-    G --> G2[FirstName]
-    G --> G3[LastName]
-    G --> G4[DateOfBirth]
-    G --> G5[Position]
-    G --> G6[PhoneNumber]
-    G --> G7[Email]
-    G --> G8[HireDate]
-    H[Delivery] --> H1[DeliveryID]
-    H --> H2[SupplierID]
-    H --> H3[EmployeeID]
-    H --> H4[WarehouseID]
-    H --> H5[DeliveryDate]
-    I[DeliveryProduct] --> I1[DeliveryProductID]
-    I --> I2[DeliveryID]
-    I --> I3[ProductID]
-    I --> I4[Quantity]
-    J[BalanceSheet] --> J1[BalanceSheetID]
-    J --> J2[WarehouseID]
-    J --> J3[ReportingDate]
-    J --> J4[TotalAssets]
-    J --> J5[TotalLiabilities]
-    J --> J6[OwnerEquity]
-
-    subgraph Category_Product_Supplier
-        A1 --1--> B5
-        B6 --*--> C1
-    end
-
-    subgraph Warehouse_Stock_Product
-        D1 --1--> E3
-        E2 --*--> B1
-    end
-
-    subgraph Product_StockMovement_Warehouse
-        F2 --1--> B1
-        F3 --*--> D1
-    end
-
-    subgraph Employee_Delivery_Supplier
-        G1 --1--> H3
-        H2 --*--> C1
-    end
-
-    subgraph Delivery_DeliveryProduct_Product
-        I2 --1--> H1
-        I3 --*--> B1
-    end
-
-    subgraph Warehouse_BalanceSheet
-        J2 --1--> D1
-    end
+![](2023-04-09-23-40-32.png)
 
 
-```
 
 
